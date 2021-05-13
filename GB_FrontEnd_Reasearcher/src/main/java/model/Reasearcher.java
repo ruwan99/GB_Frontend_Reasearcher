@@ -2,6 +2,7 @@ package model;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
@@ -80,6 +81,87 @@ public class Reasearcher {
 
 			return output;
 		}
+		
+		// Insert Reasearcher
+		public String insertReasearcher(String ReasearcherName, String ReasearcherEmail, String ReasearcherType,
+				String ReasearcherContact) {
+			String output = "";
+
+			try {
+				Connection con = connect();
+
+				if (con == null) {
+					return "Error while connecting to the database";
+				}
+
+				// create a prepared statement
+				String query = " insert into researcher (`ReasearcherID`,`ReasearcherName`,`ReasearcherEmail`,`ReasearcherType`,`ReasearcherContact`)"
+						+ " values (?, ?, ?, ?, ?)";
+
+				PreparedStatement preparedStmt = con.prepareStatement(query);
+
+				// binding values
+				preparedStmt.setInt(1, 0);
+				preparedStmt.setString(2, ReasearcherName);
+				preparedStmt.setString(3, ReasearcherEmail);
+				preparedStmt.setString(4, ReasearcherType);
+				preparedStmt.setString(5, ReasearcherContact);
+
+				// execute the statement
+				preparedStmt.execute();
+				con.close();
+
+				// Create JSON Object to show successful msg.
+				String newReasearcher = readReasearcher();
+				output = "{\"status\":\"success\", \"data\": \"" + newReasearcher + "\"}";
+			} catch (Exception e) {
+				// Create JSON Object to show Error msg.
+				output = "{\"status\":\"error\", \"data\": \"Error while Inserting Reasearcher.\"}";
+				System.err.println(e.getMessage());
+			}
+
+			return output;
+		}
+		
+		// Update Reasearcher
+		public String updateReasearcher(String ReasearcherID, String ReasearcherName, String ReasearcherEmail,
+				String ReasearcherType, String ReasearcherContact) {
+			String output = "";
+
+			try {
+				Connection con = connect();
+
+				if (con == null) {
+					return "Error while connecting to the database for updating.";
+				}
+
+				// create a prepared statement
+				String query = "UPDATE researcher SET ReasearcherName=?,ReasearcherEmail=?,ReasearcherType=?,ReasearcherContact=? WHERE ReasearcherID=?";
+
+				PreparedStatement preparedStmt = con.prepareStatement(query);
+
+				// binding values
+				preparedStmt.setString(1, ReasearcherName);
+				preparedStmt.setString(2, ReasearcherEmail);
+				preparedStmt.setString(3, ReasearcherType);
+				preparedStmt.setInt(4, Integer.parseInt(ReasearcherContact));
+				preparedStmt.setInt(5, Integer.parseInt(ReasearcherID));
+
+				// execute the statement
+				preparedStmt.execute();
+				con.close();
+
+				// create JSON object to show successful msg
+				String newReasearcher = readReasearcher();
+				output = "{\"status\":\"success\", \"data\": \"" + newReasearcher + "\"}";
+			} catch (Exception e) {
+				output = "{\"status\":\"error\", \"data\": \"Error while Updating Researcher Details.\"}";
+				System.err.println(e.getMessage());
+			}
+
+			return output;
+		}
+
 
 
 }
