@@ -161,6 +161,39 @@ public class Reasearcher {
 
 			return output;
 		}
+		public String deleteReasearcher(String ReasearcherID) {
+			String output = "";
+
+			try {
+				Connection con = connect();
+
+				if (con == null) {
+					return "Error while connecting to the database for deleting.";
+				}
+
+				// create a prepared statement
+				String query = "DELETE FROM researcher WHERE ReasearcherID=?";
+
+				PreparedStatement preparedStmt = con.prepareStatement(query);
+
+				// binding values
+				preparedStmt.setInt(1, Integer.parseInt(ReasearcherID));
+				// execute the statement
+				preparedStmt.execute();
+				con.close();
+
+				// create JSON Object
+				String newReasearcher = readReasearcher();
+				output = "{\"status\":\"success\", \"data\": \"" + newReasearcher + "\"}";
+			} catch (Exception e) {
+				// Create JSON object
+				output = "{\"status\":\"error\", \"data\": \"Error while Deleting Reasearcher.\"}";
+				System.err.println(e.getMessage());
+
+			}
+
+			return output;
+		}
 
 
 
