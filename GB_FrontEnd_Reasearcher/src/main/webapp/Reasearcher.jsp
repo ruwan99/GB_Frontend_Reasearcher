@@ -4,6 +4,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+
+<link rel="stylesheet" href="Views/bootstrap.min.css"> 
 <script src="components/jquery-3.6.0.js"></script>
 <script src="components/main.js"></script>
 
