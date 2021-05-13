@@ -20,15 +20,15 @@
 					<input id="ResearcherName" name="ResearcherName" type="text" class="form-control form-control-sm">  
 					
 					<br> 
-					Researcher Name: Email:  
+					Researcher Email:  
 					<input id="ResearcherEmail" name="ResearcherEmail" type="text" class="form-control form-control-sm">  
 					
 					<br>
-					Researcher Name: Type:  
+					Researcher Type:  
 					 <input id="ResearcherType" name="ResearcherType" type="text" class="form-control form-control-sm">  
 					 
 					 <br> 
-					 Researcher Name: Contact:  
+					 Researcher Contact:  
 					 <input id="ResearcherContact" name="ResearcherContact" type="text" class="form-control form-control-sm">  
 					 
 					
